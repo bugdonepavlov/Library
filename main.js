@@ -108,8 +108,7 @@ Library.prototype.update = function(btnID) {
 
 	this.list.map(function(el, i) {
 		if (this.list[i].id == attrID) {
-			let input = document.querySelector('#dataID')
-			input.value = attrID;
+			this.hiddenID.value = attrID;
 			this.author.value = this.list[i].author;
 			this.date.value = this.list[i].date;
 			this.nameBook.value = this.list[i].name;
@@ -128,13 +127,16 @@ Library.prototype.add = function(data) {
 	this.createElement(this.list.length-1);
 }
 Library.prototype.delete = function(btnTarget) {
+
 	let item = btnTarget,
 		itemID = item.getAttribute('data-id');
 
 	for (var i = 0; i < this.list.length; i++) {
-		if (this.list[i].id === +itemID) {
+
+		if (this.list[i].id == itemID) {
+
 			this.list.splice(i,1);
-			item.style.display = 'none';
+			item.remove();
 		}
 	}
 	this.storage.sync(this.list)
