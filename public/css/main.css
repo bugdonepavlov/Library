@@ -1,0 +1,44 @@
+.block-library {
+	margin-top: 50px;
+}
+.block-library h2 {
+	text-align: center;
+}
+.library-items {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+.library-items li {
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 5px;
+	border: 1px #ddd solid;
+	margin-bottom: 20px;
+	display: inline-block;
+	width: 48%;
+	margin: 0 1% 2%;
+}
+.library-items li h4 {
+	margin-top: 0;
+}
+.library-items li p {
+	font-size: 1.1em;
+}
+
+input:focus:invalid,
+textarea:focus:invalid{
+	border:solid 2px #F5192F;
+}
+
+input:focus:valid,
+textarea:focus:valid{
+	border:solid 2px #18E109;
+	background-color:#fff;
+}
+
+@media screen and (max-width: 991px ) {
+	.block-library {
+		margin-top: 20px;
+	}
+}
