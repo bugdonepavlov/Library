@@ -1,11 +1,13 @@
 function LocalStorage(key) {
 	this.key = key;
 }
+
 LocalStorage.prototype.fetch = function() {
 	const data = JSON.parse(localStorage.getItem(this.key) || '[]');
 
 	return data;
 }
+
 LocalStorage.prototype.sync = function(data) {
 	localStorage.setItem(this.key, JSON.stringify(data));
 }
@@ -17,6 +19,7 @@ function Library(options) {
 	this.bindEvents();
 	this.render();
 }
+
 Library.prototype.collectionNodes = function (options) {
 	this.container = document.getElementById(options.lists);
 	this.author = document.getElementById(options.author);
@@ -27,6 +30,7 @@ Library.prototype.collectionNodes = function (options) {
 	this.form = document.getElementById(options.form);
 	this.hiddenID = document.getElementById(options.hiddenID);
 }
+
 Library.prototype.bindEvents = function() {
 	const self = this;
 
@@ -53,6 +57,7 @@ Library.prototype.bindEvents = function() {
 
 	});
 }
+
 Library.prototype.createElement = function(index) {
 
 	const html = `<li class="list-item" data-id="${this.list[index].id}">
@@ -84,6 +89,7 @@ Library.prototype.createElement = function(index) {
 		}.bind(this));
 	}
 }
+
 Library.prototype.edited = function(dataID) {
 
 	this.list.map(function(el,i) {
@@ -103,6 +109,7 @@ Library.prototype.edited = function(dataID) {
 	}.bind(this));
 
 }
+
 Library.prototype.update = function(btnID) {
 	let attrID = btnID.getAttribute('data-id');
 
@@ -116,16 +123,19 @@ Library.prototype.update = function(btnID) {
 		}
 	}.bind(this));
 }
+
 Library.prototype.render = function() {
 	this.list.map(function(el,i) {
 		this.createElement(i);
 	}.bind(this));
 }
+
 Library.prototype.add = function(data) {
 	this.list.push(data);
 	this.storage.sync(this.list);
 	this.createElement(this.list.length-1);
 }
+
 Library.prototype.delete = function(btnTarget) {
 
 	const item = btnTarget,
