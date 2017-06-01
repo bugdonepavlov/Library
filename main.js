@@ -2,12 +2,12 @@ function LocalStorage(key) {
 	this.key = key;
 }
 LocalStorage.prototype.fetch = function() {
-	let data = JSON.parse(localStorage.getItem(this.key) || '[]');
+	const data = JSON.parse(localStorage.getItem(this.key) || '[]');
 
-	return data
+	return data;
 }
 LocalStorage.prototype.sync = function(data) {
-	localStorage.setItem(this.key, JSON.stringify(data))
+	localStorage.setItem(this.key, JSON.stringify(data));
 }
 
 function Library(options) {
@@ -28,7 +28,7 @@ Library.prototype.collectionNodes = function (options) {
 	this.hiddenID = document.getElementById(options.hiddenID);
 }
 Library.prototype.bindEvents = function() {
-	let self = this;
+	const self = this;
 
 	self.form.addEventListener('submit', function(e) {
 		e.preventDefault();
@@ -47,15 +47,15 @@ Library.prototype.bindEvents = function() {
 		} else {
 			self.btnSubmit.classList.remove('update');
 			self.btnSubmit.textContent = 'Publish';
-			self.edited(self.hiddenID.value)
-			self.form.reset()
+			self.edited(self.hiddenID.value);
+			self.form.reset();
 		}
 
 	});
 }
 Library.prototype.createElement = function(index) {
 
-	let html = `<li class="list-item" data-id="${this.list[index].id}">
+	const html = `<li class="list-item" data-id="${this.list[index].id}">
 					<h4>Автор: ${this.list[index].author}</h4>
 					<p>Название: ${this.list[index].name}</p>
 					<div class="btn-items">
@@ -66,12 +66,12 @@ Library.prototype.createElement = function(index) {
 
 	this.container.innerHTML += html;
 
-	let removeBtn = document.getElementsByClassName("removed"),
+	const removeBtn = document.getElementsByClassName("removed"),
 		editBtn = document.getElementsByClassName('edited');
 
 	for (let i of removeBtn) {
 		i.addEventListener('click', function(e) {
-			this.delete(e.target.closest('li'))
+			this.delete(e.target.closest('li'));
 		}.bind(this))
 	}
 
@@ -80,8 +80,8 @@ Library.prototype.createElement = function(index) {
 			this.btnSubmit.classList.add('update');
 			this.btnSubmit.textContent = 'Update';
 
-			this.update(e.target.closest('li'))
-		}.bind(this))
+			this.update(e.target.closest('li'));
+		}.bind(this));
 	}
 }
 Library.prototype.edited = function(dataID) {
@@ -100,7 +100,7 @@ Library.prototype.edited = function(dataID) {
 			this.container.children[i].children[1].textContent = `Название: ${this.list[i].name}`;
 			this.storage.sync(this.list);
 		}
-	}.bind(this))
+	}.bind(this));
 
 }
 Library.prototype.update = function(btnID) {
@@ -114,12 +114,12 @@ Library.prototype.update = function(btnID) {
 			this.nameBook.value = this.list[i].name;
 			this.numberPages.value = this.list[i].pages;
 		}
-	}.bind(this))
+	}.bind(this));
 }
 Library.prototype.render = function() {
 	this.list.map(function(el,i) {
-		this.createElement(i)
-	}.bind(this))
+		this.createElement(i);
+	}.bind(this));
 }
 Library.prototype.add = function(data) {
 	this.list.push(data);
@@ -128,7 +128,7 @@ Library.prototype.add = function(data) {
 }
 Library.prototype.delete = function(btnTarget) {
 
-	let item = btnTarget,
+	const item = btnTarget,
 		itemID = item.getAttribute('data-id');
 
 	for (var i = 0; i < this.list.length; i++) {
@@ -139,12 +139,13 @@ Library.prototype.delete = function(btnTarget) {
 			item.remove();
 		}
 	}
-	this.storage.sync(this.list)
+	
+	this.storage.sync(this.list);
 }
 
-let storage = new LocalStorage('library$1');
+const storage = new LocalStorage('library$1');
 
-let library = new Library({
+const library = new Library({
 	lists: 'library-items',
 	author: 'author',
 	date: 'date',
@@ -154,4 +155,4 @@ let library = new Library({
 	form: 'form',
 	hiddenID: 'dataID',
 	storage: storage
-})
+});
